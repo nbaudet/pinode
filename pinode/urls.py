@@ -15,31 +15,22 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from django.contrib.auth.models import User
-from rest_framework import routers, serializers, viewsets
-
-
-# Serializers define the API representation.
-class UserSerializer(serializers.HyperlinkedModelSerializer):
-    class Meta:
-        model = User
-        fields = ('url', 'username', 'email', 'is_staff')
-
-
-# ViewSets define the view behavior.
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
-
+from rest_framework import routers
+from homepage import views
+from rest_service.views import UserViewSet, GroupViewSet
 
 # Routers provide an easy way of automatically determining the URL conf.
+
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
+router.register(r'groups', GroupViewSet)
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
 
     url(r'^', include(router.urls)),
+
+    url(r'^', views.Home, name='home'),
 
     # Browsable API
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
