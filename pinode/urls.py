@@ -16,7 +16,7 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from rest_framework import routers
-from homepage import views
+from homepage.views import Home
 from rest_service.views import UserViewSet, GroupViewSet
 
 # Routers provide an easy way of automatically determining the URL conf.
@@ -30,7 +30,7 @@ urlpatterns = [
 
     url(r'^', include(router.urls)),
 
-    url(r'^', views.Home, name='home'),
+    url(r'^', Home.as_view(), name='home'),
 
     # Browsable API
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
