@@ -1,4 +1,4 @@
-# PiNode
+![PiNode logo](docs/img/logo-pinode.png "PiNode project")
 
 The aim of this project is to make a basic weather station from a Raspberry Pi.
 
