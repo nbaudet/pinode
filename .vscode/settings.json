@@ -1,0 +1,7 @@
+{
+    "python.pipenvPath": "${workspaceFolder}/pinode-env/bin/activate",
+    "python.pythonPath": "pinode-env/bin/python",
+    "python.linting.pylintEnabled": true,
+    "python.linting.enabled": true,
+    "python.formatting.provider": "black"
+}

@@ -1,4 +1,5 @@
 from django.contrib.auth.models import User, Group
+from nodes.models import Node, Activity
 from rest_framework import serializers, viewsets
 
 
@@ -6,10 +7,22 @@ from rest_framework import serializers, viewsets
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = User
-        fields = ('url', 'username', 'email', 'is_staff')
+        fields = ('url', 'username', 'email', 'is_staff', 'groups')
 
 
 class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ('url', 'name')
+
+class NodeSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Node
+        fields = ('mac_address', 'ip_address', 'name', 'is_self',
+        'registered_since', 'last_active', 'wifi_strength',
+        'battery_status', 'is_used', 'info_string')
+
+class ActivitySerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Activity
+        fields = ('node', 'datetime', 'value')
