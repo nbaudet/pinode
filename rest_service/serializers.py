@@ -15,12 +15,23 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
         model = Group
         fields = ('url', 'name')
 
+
 class NodeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Node
-        fields = ('mac_address', 'ip_address', 'name', 'is_self',
-        'registered_since', 'last_active', 'wifi_strength',
-        'battery_status', 'is_used', 'info_string')
+        fields = (
+            'mac_address',
+            'ip_address',
+            'name',
+            'is_self',
+            'registered_since',
+            'last_active',
+            'signal_strength',
+            'battery_status',
+            'is_used',
+            'info_string',
+        )
+
 
 class ActivitySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:

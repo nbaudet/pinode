@@ -1,10 +1,16 @@
 .PHONY: help
 
-run: ## Run the main Django application
-	python manage.py runserver
+run: ## Run the main Django application and make it available on local network
+	python manage.py runserver 0.0.0.0:8000
 
 update: ## Update all outdated pip dependencies and updates requirements.txt file
 	scripts/pip_update
+
+black-check: ## Show in console what would be changed by Black formatter
+	black --check . --target-version py37 --skip-string-normalization  --exclude "pinode-env/*"
+
+black: ## Runs Black formatter
+	black . --target-version py37 --skip-string-normalization  --exclude "pinode-env/*"
 
 test: ## Some info text
 	echo "test"

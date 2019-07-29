@@ -1,5 +1,6 @@
 from abc import ABC, abstractmethod
 
+
 class BaseSensor(ABC):
     """
     Base class for sensors
@@ -7,6 +8,7 @@ class BaseSensor(ABC):
     When subclassing BaseSensor, write a concrete implementation
     for _read_data.
     """
+
     name = 'Give human readable name to the sensor'
 
     def get_data(self):
@@ -24,4 +26,4 @@ class BaseSensor(ABC):
         raise NotImplementedError
 
     def test_me(self):
-        return 'Hi, I\'m {}'.format(self.name)
+        return f"Hi, I'm {self.name}"

@@ -1,6 +1,7 @@
 from .base_sensor import BaseSensor
 from sense_hat import SenseHat
 
+
 class SenseHAT(BaseSensor):
     """
     Used to read data from the Sense HAT board's sensors
@@ -21,11 +22,12 @@ class SenseHAT(BaseSensor):
     3) If I2C was not available, it is necessary to reboot:
     `$ sudo reboot`
     """
+
     name = 'SenseHAT'
-    
+
     def _read_data(self):
         sense = SenseHat()
-        sense.show_message("Hello world!")
+        sense.show_message('Hello world!')
 
         # Float, the percentage of relative humidity
         humid = sense.get_humidity()
@@ -39,7 +41,4 @@ class SenseHAT(BaseSensor):
         # Float, the current pressure in Millibars
         press = sense.get_pressure()
 
-        return '{"temp": {}, "humid": {}, "press": {}}'.format(
-            temp, humid, press
-        )
-
+        return f'{"temp": {temp}, "humid": {humid}, "press": {press}}'

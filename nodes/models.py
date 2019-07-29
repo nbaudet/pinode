@@ -3,16 +3,24 @@ from datetime import datetime
 import jsonfield
 
 # Create your models here.
-class Node (models.Model):
+class Node(models.Model):
     mac_address = models.CharField(max_length=25, primary_key=True)
     ip_address = models.GenericIPAddressField()
     name = models.CharField(max_length=50)
     is_self = models.BooleanField()
     is_registered = models.BooleanField(default=False)
-    registered_since = models.DateTimeField(auto_now_add=True, null=True) # Saves the date of object creation
-    last_active = models.DateTimeField(auto_now=True) # updated each time the object is changed
-    signal_strength = models.DecimalField(max_digits=3, decimal_places=1, null=True) # TODO: in percent or neg. dB?
-    battery_status = models.DecimalField(max_digits=3, decimal_places=1, null=True) # in percent
+    registered_since = models.DateTimeField(
+        auto_now_add=True, null=True
+    )  # Saves the date of object creation
+    last_active = models.DateTimeField(
+        auto_now=True
+    )  # updated each time the object is changed
+    signal_strength = models.DecimalField(
+        max_digits=3, decimal_places=1, null=True
+    )  # TODO: in percent or neg. dB?
+    battery_status = models.DecimalField(
+        max_digits=3, decimal_places=1, null=True
+    )  # in percent
     is_used = models.BooleanField(default=True)
     info_string = jsonfield.JSONField()
 
@@ -32,11 +40,8 @@ class Node (models.Model):
         self.registered_since = datetime.now()
 
 
-class Activity (models.Model):
-    node = models.ForeignKey(
-        'Node',
-        on_delete=models.CASCADE,
-    )
+class Activity(models.Model):
+    node = models.ForeignKey('Node', on_delete=models.CASCADE)
     datetime = models.DateTimeField(default=datetime.now, blank=True)
     # TODO: consider adding 'auto_now_add=True' back after stubs are not needed anymore
     value = jsonfield.JSONField()
