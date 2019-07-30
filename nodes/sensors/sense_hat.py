@@ -1,3 +1,4 @@
+from decimal import Decimal
 from .base_sensor import BaseSensor
 from sense_hat import SenseHat
 
@@ -25,23 +26,23 @@ class SenseHAT(BaseSensor):
 
     name = 'SenseHAT'
 
-    def format(self, float_number):
-        return f'{float_number:.1f}'
+    def round(self, float_number):
+        return Decimal(float_number).quantize(Decimal('.1'), rounding=ROUND_HALF_EVEN)
 
     def _read_data(self):
         sense = SenseHat()
         sense.show_message('Hello world!')
 
         # Float, the percentage of relative humidity
-        humid = format(sense.get_humidity())
+        humid = round(sense.get_humidity())
 
         # Float, the current temperature in degrees Celsius
-        temp = format(sense.get_temperature_from_humidity())
+        temp = round(sense.get_temperature_from_humidity())
 
         # Other way to get the temperature from the Sense HAT
-        # temp = sense.get_temperature_from_pressure()
+        # temp = round(sense.get_temperature_from_pressure())
 
         # Float, the current pressure in Millibars
-        press = format(sense.get_pressure())
+        press = round(sense.get_pressure())
 
         return f'{"temp": {temp}, "humid": {humid}, "press": {press}}'
