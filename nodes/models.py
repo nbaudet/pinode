@@ -2,11 +2,11 @@ from django.db import models
 from datetime import datetime
 import jsonfield
 
-# Create your models here.
+
 class Node(models.Model):
-    mac_address = models.CharField(max_length=25, primary_key=True)
-    ip_address = models.GenericIPAddressField()
     name = models.CharField(max_length=50)
+    mac_address = models.CharField(max_length=25, blank=True)
+    ip_address = models.GenericIPAddressField()
     is_self = models.BooleanField()
     is_registered = models.BooleanField(default=False)
     registered_since = models.DateTimeField(
@@ -16,12 +16,12 @@ class Node(models.Model):
         auto_now=True
     )  # updated each time the object is changed
     signal_strength = models.DecimalField(
-        max_digits=3, decimal_places=1, null=True
+        max_digits=3, decimal_places=1, blank=True
     )  # TODO: in percent or neg. dB?
     battery_status = models.DecimalField(
-        max_digits=3, decimal_places=1, null=True
+        max_digits=3, decimal_places=1, blank=True
     )  # in percent
-    is_used = models.BooleanField(default=True)
+    is_soft_deleted = models.BooleanField(default=False)
     info_string = jsonfield.JSONField()
 
     def delete(self):
@@ -29,7 +29,7 @@ class Node(models.Model):
         Overrides the delete method to change the is_used boolean to False
         and not lose all data for this Node
         """
-        self.is_used = False
+        self.is_soft_deleted = True
         self.save()
 
     def register(self):
@@ -38,6 +38,10 @@ class Node(models.Model):
         """
         self.is_registered = True
         self.registered_since = datetime.now()
+
+    def __str__(self):
+        is_self = ' - IS_SELF' if self.is_self else ''
+        return f'{self.name} @ {self.ip_address}{is_self}'
 
 
 class Activity(models.Model):
