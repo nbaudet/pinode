@@ -20,15 +20,14 @@ class NodeSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Node
         fields = (
+            'name',
             'mac_address',
             'ip_address',
-            'name',
-            'is_self',
             'registered_since',
             'last_active',
             'signal_strength',
             'battery_status',
-            'is_used',
+            'is_soft_deleted',
             'info_string',
         )
 

@@ -1,4 +1,5 @@
 import os
+from uuid import getnode
 
 
 class CommandUtils():
@@ -9,6 +10,11 @@ class CommandUtils():
     def get_ip(self):
         """Return the first IP that 'hostname -I' command returns"""
         return os.popen('hostname -I').read().split(' ')[0]
+
+    def get_mac(self):
+        """Return the MAC address"""
+        mac = getnode()
+        return ':'.join(("%012X" % mac)[i:i+2] for i in range(0, 12, 2))
 
     def write(self, val):
         """Write in the command output"""
