@@ -1,5 +1,8 @@
 .PHONY: help
 
+install-reqs: ## Installs the main dependencies
+	scripts/install_reqs.sh
+
 run: ## Run the main Django application and make it available on local network
 	python manage.py runserver 0.0.0.0:8000
 

@@ -1,15 +1,21 @@
 # Dev installation of backend
 
-First make sure that Python3, pip and virtualenv are installed on your system.
+First render the install scripts executable, then make sure that Python3, pip, virtualenv and RabbitMQ are installed on your system:
+
+```shell
+$ chmod +x scripts/* && make install-reqs
+```
+
+Make sure that RabbitMQ was installed correctly by going to `http://localhost:15672/`. You should see the RabbitMQ login screen.
+
+The default user and password are `guest`. this account is only available from localhost, and you should change them if you plan to use RabbitMQ from other machines on your network.
 
 ## Virtual environment
-1. Install virtualenv if you want to manage dependencies in a virtual environment:\
-`$ sudo apt install virtualenv`
 
-2. Then create a virtual environment called 'pinode-env' defining the version of Python you want to use:\
+1. Create a virtual environment called 'pinode-env' defining the version of Python you want to use:\
 `$ virtualenv -p /usr/bin/python3 pinode-env`
 
-3. Activate the virtual environment 'pinode-env' with:\
+2. Activate the virtual environment 'pinode-env' with:\
 `$ source pinode-env/bin/activate`\
 Note: You might need to type the following in order to make the script executable:\
 `$ chmod +x pinode-env/bin/activate`
@@ -17,15 +23,24 @@ Note: You might need to type the following in order to make the script executabl
     Note: If needed, you can deactivate it with `$ deactivate`.
 
 ## Dependencies
-Install the dependencies inside your environment with:\
+Install the dependencies inside your virtual environment with:\
 `(pinode-env) $ pip install -r requirements.txt`
 
 
 ## Database and admin user
 As in any Django app, apply migrations and create a super user:
-```
+```shell
 $ python manage.py migrate
 $ python manage.py createsuperuser
+```
+
+## Register the current node
+Fill the app's database with your current machine, and describe it as "is_self" = True, so the sensors know which node they are installed onto.
+
+You have to give it a name. The name shouldn't contain any special characters.
+
+```shell
+$ python manage.py registerself "<nodename>"
 ```
 
 ## Run the Django server
