@@ -16,10 +16,10 @@ class Node(models.Model):
         auto_now=True
     )  # updated each time the object is changed
     signal_strength = models.DecimalField(
-        max_digits=3, decimal_places=1, blank=True
+        max_digits=3, decimal_places=1, blank=True, null=True
     )  # TODO: in percent or neg. dB?
     battery_status = models.DecimalField(
-        max_digits=3, decimal_places=1, blank=True
+        max_digits=3, decimal_places=1, blank=True, null=True
     )  # in percent
     is_soft_deleted = models.BooleanField(default=False)
     info_string = jsonfield.JSONField()

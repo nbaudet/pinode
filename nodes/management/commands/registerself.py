@@ -31,11 +31,13 @@ class Command(BaseCommand):
 
         # Create or update Node
         if node is None:
-            Node.objects.create(name=name, is_self=True, ip_address=utils.get_ip())
+            Node.objects.create(name=name, is_self=True, ip_address=utils.get_ip(),
+                mac_address=utils.get_mac())
             created = True
         else:
             node.name = name
             node.ip_address = utils.get_ip()
+            node.mac_address = utils.get_mac()
             node.save()
             created = False
 
