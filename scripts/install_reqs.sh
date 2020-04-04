@@ -13,3 +13,9 @@ sudo apt install rabbitmq-server
 sudo systemctl enable rabbitmq-server
 sudo systemctl start rabbitmq-server
 sudo rabbitmq-plugins enable rabbitmq_management
+
+# Create a shared admin user
+sudo rabbitmqctl add_user pinode admin123
+# tag the user with "administrator" for full management UI and HTTP API access
+sudo rabbitmqctl set_user_tags pinode administrator
+# TODO: Maybe need to set permissions for '/' node

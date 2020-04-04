@@ -1,6 +1,6 @@
 # Dev installation of backend
 
-First render the install scripts executable, then make sure that Python3, pip, virtualenv and RabbitMQ are installed on your system:
+First render the install scripts executable, then make sure that Python3, pip and virtualenv are installed and install RabbitMQ on your system:
 
 ```shell
 $ chmod +x scripts/* && make install-reqs
@@ -8,7 +8,11 @@ $ chmod +x scripts/* && make install-reqs
 
 Make sure that RabbitMQ was installed correctly by going to `http://localhost:15672/`. You should see the RabbitMQ login screen.
 
+Note: The script did not create a vhost, letting this option to you.
+
 The default user and password are `guest`. this account is only available from localhost, and you should change them if you plan to use RabbitMQ from other machines on your network.
+
+Note: If you would like to set another account, remember to select a vhost and give it the according privileges by clicking the **Set permission** button, in the Admin section of RabbitMQ
 
 ## Virtual environment
 

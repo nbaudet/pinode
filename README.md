@@ -4,7 +4,7 @@ The aim of this project is to make a basic weather station from a Raspberry Pi.
 
 There is a limited support for different temperature and humidity sensors, but it should be pretty easy to [add any sensor yourself](docs/add_sensor.md).
 
-As for now, the following sensors are supported:
+As for now, the following popular sensors are supported:
 - [Sense HAT](docs/sensors/sense_hat.md)
 - DHT11
 

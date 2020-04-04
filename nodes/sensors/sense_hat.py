@@ -1,7 +1,7 @@
 from decimal import Decimal, ROUND_HALF_UP
 import json
-from .base_sensor import BaseSensor
 from sense_hat import SenseHat
+from .base_sensor import BaseSensor
 
 
 class SenseHAT(BaseSensor):

@@ -12,6 +12,10 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
+# RabbitMQ admin user and password as created in install script 'scripts/install_reqs.sh'
+RABBITMQ_USER = 'pinode'
+RABBITMQ_PASSWORD = 'admin123'
+
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 

@@ -11,6 +11,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         utils = CommandUtils(self)
+
         s = SenseHAT()
         utils.write(s.test_me())
         data = s.get_data()

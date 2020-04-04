@@ -1,3 +1,4 @@
+"""Some functions to facilitate the use of management commands"""
 import os
 from uuid import getnode
 
