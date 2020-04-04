@@ -7,7 +7,7 @@ run: ## Run the main Django application and make it available on local network
 	python manage.py runserver 0.0.0.0:8000
 
 update: ## Update all outdated pip dependencies and updates requirements.txt file
-	scripts/pip_update
+	scripts/pip_update.sh
 
 black-check: ## Show in console what would be changed by Black formatter
 	black --check . --target-version py37 --skip-string-normalization  --exclude "pinode-env/*"
