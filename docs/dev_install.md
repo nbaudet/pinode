@@ -55,6 +55,15 @@ Then you can login at [http://127.0.0.1:8000/admin](http://127.0.0.1:8000/admin)
 ## Dev installation of frontend
 
 ...
-#
+
+## RabbitMQ
+After running the install script, RabbitMQ's admin page is available at http://localhost:15672/
+
+Default admin name and password are `pinode` and `admin123`.
+
+They are set during installation in `install_reqs.sh` script.
+ 
+You can change those values, but then also update `RABBITMQ_USER` and `RABBITMQ_PASSWORD` in the project's settings.py file.
+
 ## Run tests
 `$ python manage.py test`
