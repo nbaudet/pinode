@@ -14,13 +14,16 @@ class SenseHAT(BaseSensor):
     https://pythonhosted.org/sense-hat/
 
     Steps from the documentation:
+
     1) Ensure APT package list is up-to-date:
     `$ sudo apt-get update`
+
     2) Install the sense-hat package which will:
         - ensure the kernel is up-to-date
         - enable I2C
         - install the necessary libraries and programs
     `$ sudo apt-get install sense-hat`
+
     3) If I2C was not available, it is necessary to reboot:
     `$ sudo reboot`
     """
