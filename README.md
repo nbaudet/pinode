@@ -6,7 +6,8 @@ There is a limited support for different temperature and humidity sensors, but i
 
 As for now, the following popular sensors are supported:
 - [Sense HAT](docs/sensors/sense_hat.md)
-- DHT11
+- [DHT22](docs/sensors/dht22.md) (AM2302)
+- [BME280](docs/sensors/bme280.md)
 
 ## Instructions
 

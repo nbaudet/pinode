@@ -1,12 +1,13 @@
 from .base_sensor import BaseSensor
 
 
-class DHT11(BaseSensor):
+class DHT22(BaseSensor):
     """
-    Used to read data from a DHT11 sensor
+    Used to read data from a DHT22 (AM2303) sensor
     """
 
-    name = 'DHT11'
+    name = 'DHT22'
 
     def _read_data(self):
+
         return '{"temp": 35, "humid": 50}'

@@ -12,11 +12,6 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 
 import os
 
-from nodes.sensors import *
-
-# List of sensors that are available on this system
-SENSOR_CHOICES = [(cls.__name__, cls.__name__) for cls in BaseSensor.__subclasses__()]
-
 # RabbitMQ admin user and password as created in install script 'scripts/install_reqs.sh'
 RABBITMQ_USER = 'pinode'
 RABBITMQ_PASSWORD = 'admin123'

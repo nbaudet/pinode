@@ -1,8 +1,9 @@
-from django.conf import settings
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 from datetime import datetime
 import jsonfield
+
+from nodes.sensors import SENSOR_CHOICES
 
 
 class Node(models.Model):
@@ -79,15 +80,17 @@ class Sensor(models.Model):
     """
     Stores a Sensor configuration on a Node
     """
-    this_node = Node.objects.filter(is_self=True)
+    this_node = Node.objects.get(is_self=True)
 
     type = models.CharField(
-        help_text='If your sensor is not in the list, read the doc to easily add your own.',
-        choices=settings.SENSOR_CHOICES,
+        help_text="If your sensor is not in the list, read the doc to easily add your own. It's also possible that "
+                  "the sensor is not available on your system and couldn't load",
+        choices=SENSOR_CHOICES,
         max_length=20,
     )
     pin = models.IntegerField(
-        help_text='The GPIO pin to which the sensor\'s data cable is connected',
+        help_text="The GPIO pin to which the sensor's data cable is connected. "
+                  "(Sometimes unnecessary, ie. for the SenseHat)",
         blank=False,
         null=False,
         validators=[
@@ -97,7 +100,7 @@ class Sensor(models.Model):
     )
     node = models.ForeignKey(
         'Node',
-        help_text='The Node to which this sensor is connected to',
+        help_text="The Node to which this sensor is connected to",
         on_delete=models.SET_NULL,
         null=True,
         default=this_node
