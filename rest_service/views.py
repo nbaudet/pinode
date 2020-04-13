@@ -1,10 +1,11 @@
 from django.contrib.auth.models import User, Group
-from nodes.models import Node, Activity
+from nodes.models import Node, Sensor, Activity
 from rest_framework import viewsets
 from .serializers import (
     UserSerializer,
     GroupSerializer,
     NodeSerializer,
+    SensorSerializer,
     ActivitySerializer,
 )
 
@@ -31,6 +32,11 @@ class GroupViewSet(viewsets.ModelViewSet):
 class NodeViewSet(viewsets.ModelViewSet):
     queryset = Node.objects.all()
     serializer_class = NodeSerializer
+    
+    
+class SensorViewSet(viewsets.ModelViewSet):
+    queryset = Sensor.objects.all()
+    serializer_class = SensorSerializer
 
 
 class ActivityViewSet(viewsets.ModelViewSet):

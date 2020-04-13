@@ -1,5 +1,6 @@
-from decimal import Decimal, ROUND_HALF_UP
 import json
+
+from decimal import Decimal, ROUND_HALF_UP
 from sense_hat import SenseHat
 from .base_sensor import BaseSensor
 
@@ -33,7 +34,7 @@ class SenseHAT(BaseSensor):
     def round(self, float_number):
         return Decimal(float_number).quantize(Decimal('1.0'), rounding=ROUND_HALF_UP)
 
-    def _read_data(self):
+    def _read_data(self, config):
         sense = SenseHat()
         # sense.show_message('Hello world!')
 

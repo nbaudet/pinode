@@ -12,10 +12,13 @@ class Command(BaseCommand):
         self_node = Node.objects.get(is_self=True)
 
         """
-        Programmatically import the modules configured on the current device, then measure and output the result 
+        Programmatically import the modules configured on the current device,
+        then measure and output the result 
         """
         # List each unique sensor, then make a list of names
-        unique_sensors = list(Sensor.objects.filter(node=self_node).values('type').distinct())
+        unique_sensors = list(
+            Sensor.objects.filter(node=self_node).values('type').distinct()
+        )
         unique_sensor_types = []
         for sensor in unique_sensors:
             unique_sensor_types.append(sensor['type'])
@@ -24,22 +27,16 @@ class Command(BaseCommand):
         if unique_sensor_types:
             module = __import__('nodes.sensors', fromlist=unique_sensor_types)
 
-            # List all sensors registered on this node
-            self_sensors = list(Sensor.objects.filter(node=self_node))
-            for sensor in self_sensors:
-                # Create new instance, then measure, then write to db
-                s = getattr(module, sensor.type)()
-                utils.write(s.test_me())
-                data = s.get_data()
-                Activity.objects.create(node=self_node, datetime=timezone.now(), value=data)
-
-        # s = SenseHAT()
-        # utils.write(s.test_me())
-        # data = s.get_data()
-        # data = "{'bli', 'bla'}"
-        # utils.success(data)
-        # Activity.objects.create(node=self_node, datetime=timezone.now(), value=data)
-
-        # s2 = DHT11()
-        # utils.write(s2.test_me())
-        # utils.write(s2.get_data())
+            # List all sensors configurations on this node
+            self_sensors_config = list(Sensor.objects.filter(node=self_node))
+            for sensor_config in self_sensors_config:
+                sensor_cls = getattr(module, sensor_config.type)
+                s = sensor_cls()
+                data = s.get_data(sensor_config)
+                utils.success(data)
+                Activity.objects.create(
+                    node=self_node,
+                    sensor=sensor_config,
+                    datetime=timezone.now(),
+                    value=data,
+                )

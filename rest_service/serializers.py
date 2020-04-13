@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User, Group
-from nodes.models import Node, Activity
+from nodes.models import Node, Sensor, Activity
 from rest_framework import serializers, viewsets
 
 
@@ -32,7 +32,13 @@ class NodeSerializer(serializers.HyperlinkedModelSerializer):
         )
 
 
+class SensorSerializer(serializers.HyperlinkedModelSerializer):
+    class Meta:
+        model = Sensor
+        fields = ('type', 'node', 'pin')
+
+
 class ActivitySerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Activity
-        fields = ('node', 'datetime', 'value')
+        fields = ('node', 'sensor', 'datetime', 'value')

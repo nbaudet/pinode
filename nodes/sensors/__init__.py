@@ -1,7 +1,10 @@
 from .base_sensor import BaseSensor
 from .dht22 import DHT22
+from .bme280 import BME280
 
-# TODO: Make an autoimporter wrapped in try block for all subclasses of BaseSensor, then change doc in add_sensor.md
+# TODO: Make an autoimporter wrapped in try block for all subclasses of
+# BaseSensor, then change doc in add_sensor.md
+# Otherwise, this package will break testing on traditional PC.
 
 """
 Load sensors hereunder when they require a special configuration or module only available in certain environments

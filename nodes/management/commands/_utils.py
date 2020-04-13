@@ -1,6 +1,8 @@
 """Some functions to facilitate the use of management commands"""
 import os
 from uuid import getnode
+import subprocess
+import sys
 
 
 class CommandUtils():
@@ -16,6 +18,14 @@ class CommandUtils():
         """Return the MAC address"""
         mac = getnode()
         return ':'.join(("%012X" % mac)[i:i+2] for i in range(0, 12, 2))
+
+    def pip_install(self, package:str):
+        """Install a PIP package from code"""
+        subprocess.check_call([sys.executable, "-m", "pip", "install", package])
+
+    def apt_install(self, package:str):
+        """Install an apt-get package"""
+        os.system(f'sudo apt-get update && sudo apt-get install {package}')
 
     def write(self, val):
         """Write in the command output"""

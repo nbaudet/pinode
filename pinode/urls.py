@@ -21,13 +21,15 @@ from django.contrib import admin
 from rest_framework import routers
 import homepage
 from homepage import views
-from rest_service.views import UserViewSet, GroupViewSet, NodeViewSet, ActivityViewSet
+from rest_service.views import UserViewSet, GroupViewSet, NodeViewSet,\
+SensorViewSet, ActivityViewSet
 
 # Routers provide an easy way of automatically determining the URL conf.
 router = routers.DefaultRouter()
 router.register(r'users', UserViewSet)
 router.register(r'groups', GroupViewSet)
 router.register(r'nodes', NodeViewSet)
+router.register(r'sensors', SensorViewSet)
 router.register(r'activities', ActivityViewSet)
 
 urlpatterns = [
