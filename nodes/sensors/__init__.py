@@ -1,19 +1,29 @@
+from importlib import import_module
 from .base_sensor import BaseSensor
-from .dht22 import DHT22
-from .bme280 import BME280
-
-# TODO: Make an autoimporter wrapped in try block for all subclasses of
-# BaseSensor, then change doc in add_sensor.md
-# Otherwise, this package will break testing on traditional PC.
 
 """
-Load sensors hereunder when they require a special configuration or module only available in certain environments
-like a Raspberry Pi
+Try to load the following classes.
+This may fail, as some specific dependencies are not available to all systems.
 """
-try:
-    from .sense_hat import SenseHAT
-except ImportError:
-    pass
+SENSOR_CLASSES = [
+    ('Stub', '.stub'),
+    ('DHT22', '.dht22'),
+    ('BME280', '.bme280'),
+    ('SenseHAT', '.sense_hat'),
+]
+
+# List of sensors incompatible with this system
+INCOMPATIBLE_SENSOR_CLASSES = []
+
+for name, path in SENSOR_CLASSES:
+    try:
+        module = import_module(path, package='nodes.sensors')
+    except ImportError:
+        INCOMPATIBLE_SENSOR_CLASSES.append((name, path))
 
 # List of sensors that are available for this system
 SENSOR_CHOICES = [(cls.__name__, cls.__name__) for cls in BaseSensor.__subclasses__()]
+
+# Sensors unavailable are marked with an asterisk
+for name, path in INCOMPATIBLE_SENSOR_CLASSES:
+    SENSOR_CHOICES.append((name, name + '*'))

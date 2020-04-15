@@ -4,6 +4,7 @@ from datetime import datetime
 import jsonfield
 
 from nodes.sensors import SENSOR_CHOICES
+from nodes.validators import validate_sensor
 
 
 class Node(models.Model):
@@ -80,22 +81,26 @@ class Sensor(models.Model):
     """
     Stores a Sensor configuration on a Node
     """
+
     this_node = Node.objects.get(is_self=True)
 
     type = models.CharField(
-        help_text="If your sensor is not in the list, read the doc to easily add your own. It's also possible that "
-                  "the sensor is not available on your system and couldn't load",
+        help_text="*: Either the sensor is not available for your system, or it's not installed. Try to execute "
+                  "`(pinode-env) $ python manage.py install_'your sensor'`",
         choices=SENSOR_CHOICES,
         max_length=20,
+        validators=[
+            validate_sensor,
+        ]
     )
     pin = models.IntegerField(
         help_text="The GPIO pin to which the sensor's data cable is connected. "
-                  "(Sometimes unnecessary, ie. for the SenseHat)",
+                  "(Can be anything if the sensor is connected via I2C)",
         blank=False,
         null=False,
         validators=[
             MaxValueValidator(40),
-            MinValueValidator(1)
+            MinValueValidator(1),
         ],
     )
     node = models.ForeignKey(

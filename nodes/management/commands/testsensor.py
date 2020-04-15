@@ -1,7 +1,10 @@
+import importlib
+
 from django.core.management.base import BaseCommand
 from django.utils import timezone
 from nodes.models import Node, Activity, Sensor
 from nodes.management.commands._utils import CommandUtils
+from nodes.sensors import SENSOR_CLASSES
 
 
 class Command(BaseCommand):
@@ -15,7 +18,7 @@ class Command(BaseCommand):
         Programmatically import the modules configured on the current device,
         then measure and output the result 
         """
-        # List each unique sensor, then make a list of names
+        # List each unique sensor configured on device, then make a list of names
         unique_sensors = list(
             Sensor.objects.filter(node=self_node).values('type').distinct()
         )
@@ -25,11 +28,13 @@ class Command(BaseCommand):
 
         # Programmatically import required sensor classes from names
         if unique_sensor_types:
-            module = __import__('nodes.sensors', fromlist=unique_sensor_types)
+            # module = __import__('nodes.sensors.stub', fromlist=unique_sensor_types)
 
             # List all sensors configurations on this node
             self_sensors_config = list(Sensor.objects.filter(node=self_node))
             for sensor_config in self_sensors_config:
+                path = dict(SENSOR_CLASSES)[sensor_config.type]
+                module = importlib.import_module(path, package='nodes.sensors')
                 sensor_cls = getattr(module, sensor_config.type)
                 s = sensor_cls()
                 data = s.get_data(sensor_config)
