@@ -30,7 +30,7 @@ class Node(models.Model):
 
     def delete(self):
         """
-        Overrides the delete method to change the is_used boolean to False
+        Overrides the delete method to change the is_soft_deleted boolean to False
         and not lose all data for this Node
         TODO: Evaluate if on_delete=models.SET_NULL() wouldn't be better
         """
@@ -108,7 +108,7 @@ class Sensor(models.Model):
         help_text="The Node to which this sensor is connected to",
         on_delete=models.SET_NULL,
         null=True,
-        default=this_node
+        default=this_node.pk
     )
 
     def __str__(self):
