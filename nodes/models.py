@@ -95,12 +95,12 @@ class Sensor(models.Model):
     )
     pin = models.IntegerField(
         help_text="The GPIO pin to which the sensor's data cable is connected. "
-                  "(Can be anything if the sensor is connected via I2C)",
+                  "(Or BUS 0 or 1 if the sensor is connected via I²C)",
         blank=False,
         null=False,
         validators=[
             MaxValueValidator(40),
-            MinValueValidator(1),
+            MinValueValidator(0),
         ],
     )
     node = models.ForeignKey(
@@ -113,4 +113,4 @@ class Sensor(models.Model):
 
     def __str__(self):
         on_node = '' if self.node.is_self else f' on {self.node}'
-        return f'{self.type}{on_node} on GPIO pin {self.pin}'
+        return f'{self.type}{on_node} on {self.pin}'

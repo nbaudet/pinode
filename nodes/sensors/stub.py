@@ -21,3 +21,6 @@ class Stub(BaseSensor):
         }
 
         return dumps(data)
+
+    def get_protocol(self) -> str:
+        return BaseSensor.PROTOCOL_GPIO

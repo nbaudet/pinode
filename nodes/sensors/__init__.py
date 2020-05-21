@@ -12,6 +12,13 @@ SENSOR_CLASSES = [
     ('SenseHAT', '.sense_hat'),
 ]
 
+PROTOCOL_GPIO = 'GPIO'
+PROTOCOL_I2C = 'I²C'
+PROTOCOL_CHOICES = [
+    ('GPIO', PROTOCOL_GPIO),
+    ('I2C', PROTOCOL_I2C),
+]
+
 # List of sensors incompatible with this system
 INCOMPATIBLE_SENSOR_CLASSES = []
 

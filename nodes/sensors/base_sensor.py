@@ -4,7 +4,7 @@ from abc import ABC, abstractmethod
 class BaseSensor(ABC):
     """
     Base class for sensors
-    It is used for automatically declaring Celery tasks.
+    It is used to automatically declare Celery tasks.
     When subclassing BaseSensor, write a concrete implementation
     for _read_data.
     """
@@ -22,6 +22,13 @@ class BaseSensor(ABC):
         """
         Implementation for concrete reading of the sensor, and
         return sensor data as a JSON string
+        """
+        raise NotImplementedError
+
+    @abstractmethod
+    def get_protocol(self) -> str:
+        """
+        :return: The protocol used to communicate between the sensor and the node
         """
         raise NotImplementedError
 

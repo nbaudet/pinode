@@ -58,3 +58,6 @@ class SenseHAT(BaseSensor):
         }
 
         return json.dumps(data)
+
+    def get_protocol(self) -> str:
+        return BaseSensor.PROTOCOL_I2C

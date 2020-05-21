@@ -32,3 +32,6 @@ class DHT22(BaseSensor):
         }
 
         return json.dumps(data)
+
+    def get_protocol(self) -> str:
+        return BaseSensor.PROTOCOL_GPIO

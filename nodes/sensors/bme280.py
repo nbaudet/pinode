@@ -22,3 +22,6 @@ class BME280(BaseSensor):
         }
 
         return dumps(data)
+
+    def get_protocol(self) -> str:
+        return BaseSensor.PROTOCOL_I2C
