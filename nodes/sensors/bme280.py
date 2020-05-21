@@ -1,7 +1,7 @@
 from json import dumps
 
 from .base_sensor import BaseSensor
-from .libbme280 import readBME280All
+from .libbme280 import read_BME280
 
 
 class BME280(BaseSensor):
@@ -13,8 +13,8 @@ class BME280(BaseSensor):
     name = 'BME280'
 
     def _read_data(self, config):
-        temp, pressure, humid = readBME280All()
-                
+        temp, pressure, humid = read_BME280()
+        
         data = {
             "temp": f'{temp:.1f}',
             "humid": f'{humid:.1f}',
